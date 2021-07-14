@@ -11,6 +11,7 @@ USER_PASS=$USER
 
 log "Starting MySql"
 
+chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 service mysql start
 
 log "Creating database"

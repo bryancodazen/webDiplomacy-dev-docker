@@ -6,8 +6,11 @@
 trap "error 'Failed to start webDiplomacy Development Server'" 0
 
 log "Starting services"
+# journalctl -u mysql.service -f
+chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+service mysql start 
 service apache2 start
-service mysql start
+
 
 log "Confirming source is mounted"
 
