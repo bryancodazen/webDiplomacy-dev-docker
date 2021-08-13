@@ -38,7 +38,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $database_socket='localhost';
+	public static $database_socket = 'localhost';
 
 	/**
 	 * The user who will perform all database actions. You should
@@ -48,21 +48,21 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $database_username='webdiplomacy';
+	public static $database_username = 'webdiplomacy';
 
 	/**
 	 * The password of the above user
 	 *
 	 * @var string
 	 */
-	public static $database_password='webdiplomacy';
+	public static $database_password = 'webdiplomacy';
 
 	/**
 	 * The database name
 	 *
 	 * @var string
 	 */
-	public static $database_name='webdiplomacy';
+	public static $database_name = 'webdiplomacy';
 
 	/**
 	 * This is used to salt hashes for passwords, if it gets out it's not the end of the world.
@@ -72,7 +72,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $salt='';
+	public static $salt = '';
 
 	/**
 	 * This is used for session keys and the captcha code, and can be changed from time
@@ -80,7 +80,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $secret='';
+	public static $secret = '';
 
 	/**
 	 * This is used to authenticate the cron process which will run the gamemaster script.
@@ -90,7 +90,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $gameMasterSecret='';
+	public static $gameMasterSecret = '';
 
 	/**
 	 * This is used to authenticate the cron process which will run the gamemaster script.
@@ -100,7 +100,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $jsonSecret='';
+	public static $jsonSecret = '';
 
 	/**
 	 * The administrators e-mail; if a user experiences a problem they will be invited to contact this
@@ -109,7 +109,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $adminEMail='webmaster@yourdiplomacyserver.com';
+	public static $adminEMail = 'webmaster@yourdiplomacyserver.com';
 
 	/**
 	 * The moderators e-mail; if users have been banned etc they will be directed to contact this e-mail 
@@ -117,13 +117,34 @@ class Config
 	 * 
 	 * @var string
 	 */
-	public static $modEMail='moderators@yourdiplomacyserver.com';
+	public static $modEMail = 'moderators@yourdiplomacyserver.com';
 
 	/**
 	 * An array of variants available on the server (for future releases, not yet enabled)
 	 * @var array
 	 */
-	public static $variants=array(1=>'Classic', 2=>'World', 9=>'AncMed',19=>'Modern2',20=>'Empire4', 15 => 'ClassicFvA', 23 => 'ClassicGvI', 17 => 'ClassicChaos');//3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
+	public static $variants = array(1 => 'Classic', 2 => 'World', 9 => 'AncMed', 19 => 'Modern2', 20 => 'Empire4', 15 => 'ClassicFvA', 23 => 'ClassicGvI', 17 => 'ClassicChaos'); //3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
+
+
+	/**
+	 * The API configuration. Whether to enable it or not, and restrict it to some variants or some gameIDs.
+	 *
+	 * @var array
+	 */
+	public static $apiConfig = array(
+		/* Whether the API is enabled or not */
+		"enabled" => true,
+
+		/* Only replace players in CD if they are in a NoPress game */
+		"noPressOnly" => true,
+
+		/* If the API should only be enabled for some game ids, set the list of game ids here */
+		"restrictToGameIDs" => array(),
+
+		/* List of variant IDs supported */
+		/* 1 = Classic, 15 = ClassicFvA, 23 = ClassicGvI */
+		"variantIDs" => array(1, 15, 23)
+	);
 
 	/**
 	 * Messages to display when different flags are set via the admin control panel.
@@ -132,12 +153,12 @@ class Config
 	 *
 	 * @var array
 	 */
-	public static $serverMessages=array(
-			'Notice'=>'Default server-wide notice message.',
-			'Panic'=>'Game processing has been paused and user registration has been disabled while a problem is resolved.',
-			'Maintenance'=>"Server is in maintenance mode; only admins can fully interact with the server.",
-			'ServerOffline'=>''
-		);
+	public static $serverMessages = array(
+		'Notice' => 'Default server-wide notice message.',
+		'Panic' => 'Game processing has been paused and user registration has been disabled while a problem is resolved.',
+		'Maintenance' => "Server is in maintenance mode; only admins can fully interact with the server.",
+		'ServerOffline' => ''
+	);
 
 	/**
 	 * An array of answers, indexed by the question, which are added to the FAQ page on this installation, adding it
@@ -147,14 +168,14 @@ class Config
 	 *
 	 * @var array
 	 */
-	public static $faq=array('Have any extra questions been added?'=>'No, not yet.');
+	public static $faq = array('Have any extra questions been added?' => 'No, not yet.');
 
 	/**
 	 * If this is set it is used as a link to a custom forum, instead of the built-in forum
 	 * @var string
 	 */
 	//public static $customForumURL = 'contrib/phpBB3/';
-	
+
 	/**
 	 * The directory in which error logs are stored. If this returns false errors will not be logged.
 	 * *Must not be accessible to the web server, as sensitive info is stored in this folder.*
@@ -194,7 +215,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $pointsLogFile=false;//'../pointslog.txt';
+	public static $pointsLogFile = false; //'../pointslog.txt';
 
 	/**
 	 * An array of e-mail settings, to validate e-mails etc.
@@ -202,34 +223,34 @@ class Config
 	 * @var array
 	 */
 	public static $mailerConfig = array(
-			"From"=> "webmaster@yourdiplomacyserver.com",
-			/* The e-mail which mail is sent from. This should be a valid e-mail,
+		"From" => "webmaster@yourdiplomacyserver.com",
+		/* The e-mail which mail is sent from. This should be a valid e-mail,
 			or it may trip spam filters. */
-			"FromName"=> "webDiplomacy gamemaster",
-			/* The name being mailed from. */
-			"UseMail"=>false,
-			/* Use the php mail() function. Either UseMail, UseSendmail or UseSMTP has to be TRUE,
+		"FromName" => "webDiplomacy gamemaster",
+		/* The name being mailed from. */
+		"UseMail" => false,
+		/* Use the php mail() function. Either UseMail, UseSendmail or UseSMTP has to be TRUE,
 				if you're using e-mail. */
-			"UseSendmail"=>true,
-			/* Use the sendmail binary, if this is false the variable below is ignored */
-			"SendmailSettings"=> array(
-					"Location"=>"/usr/sbin/sendmail"
-					/* Location of the sendmail binary */
-				),
-			"UseSMTP"=> false,
-			/* Use SMTP, if this is FALSE the variable below is ignored. */
-			"SMTPSettings"=> array(
-					"Host"=>"yourdiplomacyserver.com",
-					"Port"=>"25",
-					"SMTPAuth"=>false,
-					/* If this is FALSE the two variables below are ignored */
-					"Username"=>"webmaster",
-					"Password"=>"password123"
-					/* Uncomment the line below to use SSL to connect (e.g. for gmail) */
-					// , 'SMTPSecure'=>'ssl'
-				),
-			"UseDebug" => true // If this is set to true mail will be output to the browser instead of sent, useful for debugging
-		);
+		"UseSendmail" => true,
+		/* Use the sendmail binary, if this is false the variable below is ignored */
+		"SendmailSettings" => array(
+			"Location" => "/usr/sbin/sendmail"
+			/* Location of the sendmail binary */
+		),
+		"UseSMTP" => false,
+		/* Use SMTP, if this is FALSE the variable below is ignored. */
+		"SMTPSettings" => array(
+			"Host" => "yourdiplomacyserver.com",
+			"Port" => "25",
+			"SMTPAuth" => false,
+			/* If this is FALSE the two variables below are ignored */
+			"Username" => "webmaster",
+			"Password" => "password123"
+			/* Uncomment the line below to use SSL to connect (e.g. for gmail) */
+			// , 'SMTPSecure'=>'ssl'
+		),
+		"UseDebug" => true // If this is set to true mail will be output to the browser instead of sent, useful for debugging
+	);
 
 	/**
 	 * Something to add after everything else has been printed off (except '</body></html>'), useful for
@@ -251,7 +272,7 @@ class Config
 	 * is set to true if viewing as admin)
 	 * @var boolean
 	 */
-	public static $debug=true;
+	public static $debug = true;
 
 	/**
 	 * The locale for this site.
@@ -264,7 +285,7 @@ class Config
 	 * The number of minutes that gamemaster.php will detect that it hasn't been run for before it will
 	 * mark itself in downtime mode.
 	 */
-	public static $downtimeTriggerMinutes=12;
+	public static $downtimeTriggerMinutes = 12;
 
 
 	// ---
@@ -278,7 +299,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $facebookStaticURL='';
+	public static $facebookStaticURL = '';
 
 	/**
 	 * The URL of the front end of the server (usually only for Facebook or advanced users)
@@ -287,21 +308,21 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $facebookServerURL='';
+	public static $facebookServerURL = '';
 
 	/**
 	 * The Facebook API key. If you're not on Facebook this will be ignored
 	 *
 	 * @var string
 	 */
-	public static $facebookAPIKey='';
+	public static $facebookAPIKey = '';
 
 	/**
 	 * The Facebook secret. If you're not on Facebook this will be ignored
 	 *
 	 * @var string
 	 */
-	public static $facebookSecret='';
+	public static $facebookSecret = '';
 
 	/**
 	 * The path to the Facebook API script (facebook.php)
@@ -310,7 +331,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $facebookAPIPath='';
+	public static $facebookAPIPath = '';
 
 	/**
 	 * The user ID of the Facebook user to send game notification messages from.
@@ -319,19 +340,19 @@ class Config
 	 *
 	 * @var int
 	 */
-	public static $facebookNotificationFromUserID='';
+	public static $facebookNotificationFromUserID = '';
 
 	/**
 	 * The authentication secret of the above Facebook user
 	 *
 	 * @var string
 	 */
-	public static $facebookNotificationFromUserSecret='';
+	public static $facebookNotificationFromUserSecret = '';
 
 	/**
 	 * The Facebook debug value
 	 *
 	 * @var bool
 	 */
-	public static $facebookDebug=false;
+	public static $facebookDebug = false;
 }

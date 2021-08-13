@@ -17,6 +17,14 @@ git clone https://github.com/TimothyJones/webDiplomacy-dev-docker.git
 cd webDiplomacy-dev-docker
 ```
 
+To  the data to persist between uses, so you don’t have to register new accounts and make new games anytime you are testing things create a separate docker volume for the database
+
+```
+docker volume create webDipData
+```
+
+Note: the start-server script expects 'webDipData' as the database volume name. 
+
 Then, just run:
 
 ```
