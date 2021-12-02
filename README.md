@@ -13,11 +13,13 @@ Provides a development environment for webDiplomacy
 Get the harness:
 
 ```
-git clone https://github.com/TimothyJones/webDiplomacy-dev-docker.git
+git clone https://github.com/bryancodazen/webDiplomacy-dev-docker.git
 cd webDiplomacy-dev-docker
 ```
 
-Then, just run:
+Then, create a directory called `webDiplomacy`. Inside this directory, clone https://github.com/kestasjk/webDiplomacy.git and switch to the `staging` branch.
+
+Finally, run:
 
 ```
 ./start-server.sh
@@ -32,5 +34,3 @@ Once you've registered a new user, navigate to [http://localhost/gamemaster.php?
 # Very important
 
 Do not use this harness to run a webDiplomacy installation open to the web! It has debug mode set on, and default passwords everywhere. You have been warned.
-
-Also, the database doesn't persist between server starts.
