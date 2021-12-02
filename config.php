@@ -90,7 +90,7 @@ class Config
 	 *
 	 * @var string
 	 */
-	public static $gameMasterSecret='';
+	public static $gameMasterSecret='midas123';
 
 	/**
 	 * This is used to authenticate the cron process which will run the gamemaster script.
@@ -112,9 +112,9 @@ class Config
 	public static $adminEMail='webmaster@yourdiplomacyserver.com';
 
 	/**
-	 * The moderators e-mail; if users have been banned etc they will be directed to contact this e-mail 
+	 * The moderators e-mail; if users have been banned etc they will be directed to contact this e-mail
 	 * to contest it.
-	 * 
+	 *
 	 * @var string
 	 */
 	public static $modEMail='moderators@yourdiplomacyserver.com';
@@ -123,7 +123,106 @@ class Config
 	 * An array of variants available on the server (for future releases, not yet enabled)
 	 * @var array
 	 */
-	public static $variants=array(1=>'Classic', 2=>'World', 9=>'AncMed',19=>'Modern2',20=>'Empire4');//3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
+	public static $variants=array(1=>'Classic', 2=>'World', 9=>'AncMed',19=>'Modern2',20=>'Empire4',15 => 'ClassicFvA', 23 => 'ClassicGvI', 17 => 'ClassicChaos');//3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
+
+	/**
+	 * A boolean controlling whether automatic gr calculations are enabled. Set to true for auto-GR calculation and false to require manual calculations via the modtool. Note that $grCategories must exist to work.
+	 * @var boolean
+	 */
+	public static $grActive = false;
+
+	/**
+	 * An array of categories to use when calculating GhostRatings
+	 * @var array
+	 */
+	public static $grCategories=array(
+		/* A Category ID maps to an array of settings */
+		0 => array(
+			/*gives the name of the category*/
+			"name" => "Overall",
+			/*Different scoring systems are used for 1v1 and non-1v1*/
+			"1v1" => "No",
+			/*variantMods sets which variants to include*/
+			"variants" => array(1,2,9,15,23,19,20,17),
+			/*pressMods sets which press type to include*/
+			"presses" => array('Regular','PublicPressOnly','NoPress','RulebookPress'),
+			/*phases sets whether you want to include live games, non-live games, or both. The cutoff is at 1 hour phase lengths. 1 hour phases are considered non-live*/
+			"phases" => array('Live', 'Nonlive'),
+			/*scoring lets you choose what type of scoring sytems to include - only these three types are supported in the current code*/
+			"scoring" => array('Winner-takes-all','Points-per-supply-center','Sum-of-squares')
+		),
+		1 => array(
+			"name" => "Gunboat",
+			"1v1" => "No",
+			"variants" => array(1,2,9,19,20,17),
+			"presses" => array('NoPress'),
+			"phases" => array('Live', 'Nonlive'),
+			"scoring" => array('Winner-takes-all','Points-per-supply-center','Sum-of-squares')
+		),
+		2 => array(
+			"name" => "Live",
+			"1v1" => "No",
+			"variants" => array(1,2,9,19,20,17),
+			"presses" => array('Regular','PublicPressOnly','NoPress','RulebookPress'),
+			"phases" => array('Live'),
+			"scoring" => array('Winner-takes-all','Points-per-supply-center','Sum-of-squares')
+		),
+		3 => array(
+			"name" => "Full Press",
+			"1v1" => "No",
+			"variants" => array(1),
+			"presses" => array('Regular'),
+			"phases" => array('Nonlive'),
+			"scoring" => array('Winner-takes-all','Sum-of-squares')
+		),
+		4 => array (
+			"name" => "1v1 Overall",
+			"1v1" => "Yes",
+			"variants" => array(15,23)
+		),
+		5 => array (
+			"name" => "FvA",
+			"1v1" => "Yes",
+			"variants" => array(15)
+		),
+		6 => array (
+			"name" => "GvI",
+			"1v1" => "Yes",
+			"variants" => array(23)
+		)
+	);
+
+	/**
+	 * An array of modvalues to use when calculating GhostRatings. The lower the number the more weight it carries
+	 * @var array
+	 */
+	public static $grVariantMods = array(1=>1, 2=>4, 9=>2, 19=>4, 20=>4, 15=>1, 23=>1, 17=>8);
+
+	/**
+	 * An array of modvalues to use when calculating GhostRatings. The lower the number the more weight it carries
+	 * @var array
+	 */
+	public static $grPressMods = array('Regular'=>1,'PublicPressOnly'=>2,'NoPress'=>4,'RulebookPress'=>1);
+
+	/**
+	 * The API configuration. Whether to enable it or not, and restrict it to some variants or some gameIDs.
+	 *
+	 * @var array
+	 */
+	public static $apiConfig = array(
+		/* Whether the API is enabled or not */
+		"enabled" => true,
+
+		/* Only replace players in CD if they are in a NoPress game */
+		"noPressOnly" => true,
+
+		/* If the API should only be enabled for some game ids, set the list of game ids here */
+		"restrictToGameIDs" => array(),
+
+		/* List of variant IDs supported */
+		/* 1 = Classic, 15 = ClassicFvA, 23 = ClassicGvI */
+		"variantIDs" => array(1, 15, 23)
+	);
 
 	/**
 	 * Messages to display when different flags are set via the admin control panel.
@@ -150,11 +249,17 @@ class Config
 	public static $faq=array('Have any extra questions been added?'=>'No, not yet.');
 
 	/**
-	 * If this is set it is used as a link to a custom forum, instead of the built-in forum
-	 * @var string
+	 * A bit-mask that masks an int stored against wD_Users to allow users to opt-in to various experimental features
+	 * in a way that doesn't need any database changes to add/remove new features.
+	 *
+	 * If this is non-zero the user will see a list of options as defined in locales/[locale]/user.php
+	 *
+	 * @var int
 	 */
-	//public static $customForumURL = 'contrib/phpBB3/';
-	
+	public static $enabledOptInFeatures = 1;
+	// Enable up to 24 opt-in features:
+	//public static $enabledOptInFeatures = 0b111111111111111111111111;
+
 	/**
 	 * The directory in which error logs are stored. If this returns false errors will not be logged.
 	 * *Must not be accessible to the web server, as sensitive info is stored in this folder.*
@@ -241,6 +346,11 @@ class Config
 		return 'Default custom server message / google analytics code.';
 	}
 
+	/**
+	 * Read /contrib/phpBB3-files/README.txt for instructions on enabling the phpBB3 integration support. The final step
+	 * is uncommenting the line below (assuming this is where it was installed to.)
+	 */
+	//public static $customForumURL='/contrib/phpBB3/';
 
 	// ---
 	// --- From here on down the default settings will probably be fine.
