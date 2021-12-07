@@ -8,6 +8,7 @@ trap "error 'Failed to start webDiplomacy Development Server'" 0
 log "Starting services"
 service apache2 start
 service mysql start
+service memcached start
 
 log "Confirming source is mounted"
 
@@ -25,7 +26,7 @@ trap - 0
 
 success_banner "webDiplomacy is ready for development"
 if [ ! -z ${WEBDIP_PORT+x} ] ; then
-  info "listening on http://localhost:$WEBDIP_PORT" 
+  info "listening on http://localhost:$WEBDIP_PORT"
   info "You can change this by setting WEBDIP_PORT before calling ./start-server.sh"
 fi
 tail -f /dev/null

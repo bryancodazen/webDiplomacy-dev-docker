@@ -123,7 +123,7 @@ class Config
 	 * An array of variants available on the server (for future releases, not yet enabled)
 	 * @var array
 	 */
-	public static $variants=array(1=>'Classic', 2=>'World', 9=>'AncMed',19=>'Modern2',20=>'Empire4',15 => 'ClassicFvA', 23 => 'ClassicGvI', 17 => 'ClassicChaos');//3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
+	public static $variants=array(1=>'Classic', 2=>'World', 9=>'AncMed',19=>'Modern2',20=>'Empire4');//3=>'FleetRome', 4=>'CustomStart', 5=>'BuildAnywhere');
 
 	/**
 	 * A boolean controlling whether automatic gr calculations are enabled. Set to true for auto-GR calculation and false to require manual calculations via the modtool. Note that $grCategories must exist to work.
@@ -143,7 +143,7 @@ class Config
 			/*Different scoring systems are used for 1v1 and non-1v1*/
 			"1v1" => "No",
 			/*variantMods sets which variants to include*/
-			"variants" => array(1,2,9,15,23,19,20,17),
+			"variants" => array(1,2,9,19,20),
 			/*pressMods sets which press type to include*/
 			"presses" => array('Regular','PublicPressOnly','NoPress','RulebookPress'),
 			/*phases sets whether you want to include live games, non-live games, or both. The cutoff is at 1 hour phase lengths. 1 hour phases are considered non-live*/
@@ -256,7 +256,7 @@ class Config
 	 *
 	 * @var int
 	 */
-	public static $enabledOptInFeatures = 1;
+	public static $enabledOptInFeatures = 0;
 	// Enable up to 24 opt-in features:
 	//public static $enabledOptInFeatures = 0b111111111111111111111111;
 

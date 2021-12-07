@@ -23,8 +23,8 @@ EOSQL
 
 log "Run Full Install"
 # cat /db_install/FullInstall/fullInstall.sql
-# cat /db_install/FullInstall/fullInstall.sql > mysql -u "$USER" --password="$USER_PASS" webdiplomacy
-cat /db_install/FullInstall/fullInstall.sql | mysql -u "$USER" --password="$USER_PASS" webdiplomacy
+# cat /db_install/FullInstall/fullInstall.sql > mysql webdiplomacy
+cat /db_install/FullInstall/fullInstall.sql | mysql webdiplomacy
 
 
 # # This should sort the database update scripts and run them in turn
