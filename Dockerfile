@@ -11,6 +11,7 @@ RUN apt-get install -y libfreetype6
 RUN apt-get install -y php7.4-memcached
 RUN apt-get install -y nano
 RUN apt-get install -y phpmyadmin
+RUN apt-get install -y wget 
 RUN apt-get purge -y javascript-common
 
 COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf

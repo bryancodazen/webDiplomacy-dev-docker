@@ -256,9 +256,9 @@ class Config
 	 *
 	 * @var int
 	 */
-	public static $enabledOptInFeatures = 0;
+	// public static $enabledOptInFeatures = 0;
 	// Enable up to 24 opt-in features:
-	//public static $enabledOptInFeatures = 0b111111111111111111111111;
+	public static $enabledOptInFeatures = 0b111111111111111111111111;
 
 	/**
 	 * The directory in which error logs are stored. If this returns false errors will not be logged.

@@ -24,7 +24,16 @@ EOSQL
 log "Run Full Install"
 # cat /db_install/FullInstall/fullInstall.sql
 # cat /db_install/FullInstall/fullInstall.sql > mysql webdiplomacy
+# cat /db_install/install.sql | mysql webdiplomacy
 cat /db_install/FullInstall/fullInstall.sql | mysql webdiplomacy
+
+
+#add bots -- unfortunately I can't log in as them because I can't set hashed passwords
+for i in 1 2 3 4 5 6; do
+  echo "INSERT INTO wD_Users(username, email, type) VALUES ('bot$i', 'bot$i@bot.com', 'Bot');" | mysql webdiplomacy
+done
+echo "INSERT INTO wD_ApiKeys(userID, apiKey) SELECT id, username FROM wD_Users WHERE username LIKE '%bot%'" | mysql webdiplomacy
+
 
 
 # # This should sort the database update scripts and run them in turn

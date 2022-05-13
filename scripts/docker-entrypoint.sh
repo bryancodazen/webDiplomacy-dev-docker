@@ -10,6 +10,9 @@ service apache2 start
 service mysql start
 service memcached start
 
+# make everyone an admin woo!
+# echo "UPDATE wD_Users SET type='User,Moderator,Admin' WHERE type='User';" | mysql webdiplomacy
+
 log "Confirming source is mounted"
 
 if [ ! -f /var/www/example.com/public_html/index.php ]; then
@@ -24,9 +27,13 @@ fi
 
 trap - 0
 
+scripts/run-gamemaster.sh &
+
 success_banner "webDiplomacy is ready for development"
 if [ ! -z ${WEBDIP_PORT+x} ] ; then
   info "listening on http://localhost:$WEBDIP_PORT"
   info "You can change this by setting WEBDIP_PORT before calling ./start-server.sh"
 fi
-tail -f /dev/null
+
+bash
+# tail -f /dev/null
