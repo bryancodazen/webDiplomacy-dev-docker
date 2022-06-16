@@ -43,10 +43,14 @@ fi
 log "Executing docker run"
 trap "log 'Server stopped' ;warnings" 0
 
+mkdir -p "$SCRIPT_DIR"/webDiplomacyCache
+chmod ugo+rwx "$SCRIPT_DIR"/webDiplomacyCache
+
 # Create volume first by using 'docker volume create webDipData'
 docker run --name webDip -p $WEBDIP_PORT:80 --rm -t -i  \
   --mount type=volume,source=webDipData,dst=/var/lib/mysql \
   -v "$SCRIPT_DIR"/webDiplomacy:/var/www/example.com/public_html \
+  -v "$SCRIPT_DIR"/webDiplomacyCache:/var/www/example.com/public_html/cache \
   -e WEBDIP_PORT=$WEBDIP_PORT \
   -e MYSQL_LOG_CONSOLE=true \
   webdiplomacydev
