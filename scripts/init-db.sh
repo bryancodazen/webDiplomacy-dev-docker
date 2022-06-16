@@ -30,7 +30,7 @@ cat /db_install/FullInstall/fullInstall.sql | mysql webdiplomacy
 
 #add bots -- unfortunately I can't log in as them because I can't set hashed passwords
 for i in 1 2 3 4 5 6; do
-  echo "INSERT INTO wD_Users(username, email, type) VALUES ('bot$i', 'bot$i@bot.com', 'Bot');" | mysql webdiplomacy
+  echo "INSERT INTO wD_Users(username, email, type) VALUES ('bot$i', 'bot$i@bot.com', 'User,Bot');" | mysql webdiplomacy
 done
 echo "INSERT INTO wD_ApiKeys(userID, apiKey) SELECT id, username FROM wD_Users WHERE username LIKE '%bot%'" | mysql webdiplomacy
 
